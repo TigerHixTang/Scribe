@@ -1,7 +1,7 @@
-.idea/
+﻿.idea/
  output/
  target/
- ScoreboardLib.iml
+ Scribe.iml
  .gradle/
  build/
  !gradle/wrapper/gradle-wrapper.jar

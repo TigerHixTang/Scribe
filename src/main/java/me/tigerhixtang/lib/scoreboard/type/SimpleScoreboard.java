@@ -1,4 +1,4 @@
-package me.tigerhixtang.lib.scoreboard.type;
+﻿package me.tigerhixtang.lib.scoreboard.type;
  
  import com.google.common.collect.HashBasedTable;
  import com.google.common.collect.Table;
@@ -229,7 +229,7 @@ package me.tigerhixtang.lib.scoreboard.type;
              this.name = name;
              this.team = team;
              this.uuid = uuidCache.computeIfAbsent(name, k ->
-                 UUID.nameUUIDFromBytes(("ScoreboardLib:" + k).getBytes())
+                 UUID.nameUUIDFromBytes(("Scribe:" + k).getBytes())
              );
          }
  
