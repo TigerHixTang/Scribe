@@ -1,30 +1,29 @@
 # ScoreboardLib
  
- A flicker-free scoreboard library for Paper/Spigot servers (Minecraft 1.21+).
- Supports text up to 48 characters per line, animated titles, and scrolling/highlighting effects.
+ Animated, flicker-free scoreboard library for Paper 1.21+.
  
- > Originally created for Bukkit/Spigot 1.7, modernized for Paper 1.21+ with Java 21.
+ ScoreboardLib handles the quirks of Minecraft's scoreboard API so you can display formatted text, animations, and arbitrary-length lines without fighting the client.
  
  ## Features
  
- - **Up to 48 characters** per line (vanilla limit is 16)
- - **No flickering** — ScoreboardLib reuses the same scoreboard object instead of recreating it
- - **Animated text** — scrollable strings, highlight animations, frame-by-frame animations
- - **Deduplication** — display identical text on multiple lines without issues
- - **Clean shutdown** — all active scoreboards are automatically cleaned up on plugin disable
+ - **Up to 48 characters per line** — the vanilla 16-character limit is handled internally via team prefixes and suffixes
+ - **Flicker-free** — reuses a single scoreboard instance instead of destroying and recreating it on every update
+ - **Animated strings** — scrollable marquees, character-by-character highlights, and frame-based animations
+ - **Duplicate line support** — identical text on multiple lines works correctly
+ - **Lightweight** — no external dependencies beyond the Paper API; can be shaded or run standalone
  
  ## Requirements
  
  - Java 21+
- - Paper 1.21+ (or compatible Spigot fork)
+ - Paper 1.21+ (or equivalent Spigot fork)
  
- ## Usage
+ ## Installation
  
- ### As a standalone plugin
+ ### Standalone plugin
  
- Download the built JAR from Releases and place it in your server's `plugins/` folder.
+ Download the latest JAR from [Releases](https://github.com/TigerHixTang/ScoreboardLib/releases) and place it in your server's `plugins/` directory.
  
- ### As a library (shaded into your plugin)
+ ### Library dependency
  
  **Maven:**
  
@@ -47,12 +46,11 @@
          <groupId>me.tigerhixtang.lib</groupId>
          <artifactId>scoreboard</artifactId>
          <version>2.0.0-SNAPSHOT</version>
-         <scope>compile</scope>
      </dependency>
  </dependencies>
  ```
  
- **Gradle (Kotlin DSL):**
+ **Gradle:**
  
  ```kotlin
  repositories {
@@ -65,34 +63,22 @@
  }
  ```
  
- ### Building from source
+ ## Quick start
  
- **Maven:**
- ```
- mvn clean package
- ```
- 
- **Gradle:**
- ```
- ./gradlew build
- ```
- 
- ### Quick start
- 
- If you shade ScoreboardLib into your plugin, add this in your `onEnable()`:
+ If you're shading the library, call this in your plugin's `onEnable()`:
  
  ```java
  ScoreboardLib.setPluginInstance(this);
  ```
  
- Then create a scoreboard for a player:
+ Create a scoreboard for a player:
  
  ```java
- Scoreboard scoreboard = ScoreboardLib.createScoreboard(player)
+ Scoreboard board = ScoreboardLib.createScoreboard(player)
      .setHandler(new ScoreboardHandler() {
  
-         private final ScrollableString scroll = new ScrollableString("&aThis string is scrollable!", 40, 0);
-         private final HighlightedString highlighted = new HighlightedString("This string is highlighted!", "&6", "&e");
+         private final ScrollableString scroll = new ScrollableString("&aScrolling text", 40, 0);
+         private final HighlightedString highlight = new HighlightedString("Highlighted", "&7", "&e");
  
          @Override
          public String getTitle(Player player) {
@@ -103,36 +89,47 @@
          public List<Entry> getEntries(Player player) {
              return new EntryBuilder()
                  .next("&7" + scroll.next())
-                 .next("&7" + highlighted.next())
+                 .next("&7" + highlight.next())
                  .blank()
-                 .next("&bOnline: &f" + Bukkit.getOnlinePlayers().size())
-                 .next("&bTPS: &f18.5")
-                 .blank()
-                 .next("&7github.com/TigerHixTang")
+                 .next("&aOnline: &f" + Bukkit.getOnlinePlayers().size())
                  .build();
          }
- 
      })
      .setUpdateInterval(2L);
- scoreboard.activate();
+ 
+ board.activate();
  ```
  
  To remove the scoreboard:
  
  ```java
- scoreboard.deactivate();
+ board.deactivate();
  ```
  
- ### Animated strings
+ ## API overview
  
- | Class | Description |
- |-------|-------------|
- | `ScrollableString` | Scrolls text horizontally like a marquee |
+ | Interface / Class | Purpose |
+ |---|---|
+ | `ScoreboardLib` | Entry point — create scoreboards and hold the plugin instance |
+ | `Scoreboard` / `SimpleScoreboard` | Represents a player-bound scoreboard with animated title and entries |
+ | `ScoreboardHandler` | Defines what title and entries to display on each update tick |
+ | `EntryBuilder` | Convenience builder for constructing entry lists with blank lines |
+ | `ScrollableString` | Horizontal marquee-style scrolling text |
  | `HighlightedString` | Walks through each character, highlighting one at a time |
- | `FrameAnimatedString` | Cycles through a list of pre-defined frames |
- | `StaticString` | Always returns the same text (useful with interfaces) |
+ | `FrameAnimatedString` | Cycles through a pre-defined list of frames |
+ | `StaticString` | Returns the same text every call |
+ 
+ ## Building
+ 
+ ```
+ # Maven
+ mvn clean package
+ 
+ # Gradle
+ ./gradlew build
+ ```
  
  ## License
  
- This project is licensed under the `GNU Lesser General Public License v3.0` — see the [LICENSE](LICENSE) file for details.
+ [GNU Lesser General Public License v3.0](LICENSE)
  
