@@ -31,7 +31,7 @@ plugins {
      }
  
      jar {
-         archiveFileName.set("ScoreboardLib-${version}.jar")
+         archiveFileName.set("Scribe-${version}.jar")
      }
  }
  

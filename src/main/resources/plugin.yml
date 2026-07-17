@@ -1,7 +1,7 @@
-name: ScoreboardLib
+name: Scribe
  version: 2.0.0
- description: A flicker-free scoreboard library for Paper/Spigot.
+ description: Animated, flicker-free scoreboard library for Paper 1.21+.
  author: TigerHixTang
- main: me.tigerhixtang.lib.scoreboard.ScoreboardLib
+ main: me.tigerhixtang.lib.scoreboard.Scribe
  api-version: 1.21
  

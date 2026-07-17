@@ -2,7 +2,7 @@ package me.tigerhixtang.lib.scoreboard.type;
  
  import com.google.common.collect.HashBasedTable;
  import com.google.common.collect.Table;
- import me.tigerhixtang.lib.scoreboard.ScoreboardLib;
+ import me.tigerhixtang.lib.scoreboard.Scribe;
  import me.tigerhixtang.lib.scoreboard.common.Strings;
  import org.bukkit.Bukkit;
  import org.bukkit.ChatColor;
@@ -63,7 +63,7 @@ package me.tigerhixtang.lib.scoreboard.type;
                  update();
              }
          };
-         updateTask.runTaskTimer(ScoreboardLib.getPluginInstance(), 0, updateInterval);
+         updateTask.runTaskTimer(Scribe.getPluginInstance(), 0, updateInterval);
      }
  
      @Override
@@ -83,7 +83,7 @@ package me.tigerhixtang.lib.scoreboard.type;
              updateTask.cancel();
              updateTask = null;
          }
-         ScoreboardLib.unregister(this);
+         Scribe.unregister(this);
      }
  
      @Override

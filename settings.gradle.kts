@@ -5,5 +5,5 @@ pluginManagement {
      }
  }
  
- rootProject.name = "ScoreboardLib"
+ rootProject.name = "Scribe"
  

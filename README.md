@@ -1,8 +1,8 @@
-# ScoreboardLib
+# Scribe
  
  Animated, flicker-free scoreboard library for Paper 1.21+.
  
- ScoreboardLib handles the quirks of Minecraft's scoreboard API so you can display formatted text, animations, and arbitrary-length lines without fighting the client.
+ Scribe handles the quirks of Minecraft's scoreboard API so you can display formatted text, animations, and arbitrary-length lines without fighting the client.
  
  ## Features
  
@@ -21,7 +21,7 @@
  
  ### Standalone plugin
  
- Download the latest JAR from [Releases](https://github.com/TigerHixTang/ScoreboardLib/releases) and place it in your server's `plugins/` directory.
+ Download the latest JAR from [Releases](https://github.com/TigerHixTang/Scribe/releases) and place it in your server's `plugins/` directory.
  
  ### Library dependency
  
@@ -68,13 +68,13 @@
  If you're shading the library, call this in your plugin's `onEnable()`:
  
  ```java
- ScoreboardLib.setPluginInstance(this);
+ Scribe.setPluginInstance(this);
  ```
  
  Create a scoreboard for a player:
  
  ```java
- Scoreboard board = ScoreboardLib.createScoreboard(player)
+ Scoreboard board = Scribe.createScoreboard(player)
      .setHandler(new ScoreboardHandler() {
  
          private final ScrollableString scroll = new ScrollableString("&aScrolling text", 40, 0);
@@ -110,7 +110,7 @@
  
  | Interface / Class | Purpose |
  |---|---|
- | `ScoreboardLib` | Entry point — create scoreboards and hold the plugin instance |
+ | `Scribe` | Entry point — create scoreboards and hold the plugin instance |
  | `Scoreboard` / `SimpleScoreboard` | Represents a player-bound scoreboard with animated title and entries |
  | `ScoreboardHandler` | Defines what title and entries to display on each update tick |
  | `EntryBuilder` | Convenience builder for constructing entry lists with blank lines |

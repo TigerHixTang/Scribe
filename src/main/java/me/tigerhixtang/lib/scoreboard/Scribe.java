@@ -9,7 +9,7 @@ package me.tigerhixtang.lib.scoreboard;
  import java.util.ArrayList;
  import java.util.List;
  
- public final class ScoreboardLib extends JavaPlugin {
+ public final class Scribe extends JavaPlugin {
  
      private static Plugin instance;
      private static final List<SimpleScoreboard> activeScoreboards = new ArrayList<>();
@@ -19,8 +19,8 @@ package me.tigerhixtang.lib.scoreboard;
      }
  
      public static void setPluginInstance(Plugin instance) {
-         if (ScoreboardLib.instance != null) return;
-         ScoreboardLib.instance = instance;
+         if (Scribe.instance != null) return;
+         Scribe.instance = instance;
      }
  
      public static Scoreboard createScoreboard(Player holder) {
