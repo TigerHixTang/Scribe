@@ -1,4 +1,4 @@
-package me.tigerhix.lib.scoreboard.common.animate;
+package me.tigerhixtang.lib.scoreboard.common.animate;
 
 public interface AnimatableString {
 

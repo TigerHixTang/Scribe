@@ -1,4 +1,4 @@
-package me.tigerhix.lib.scoreboard.common;
+package me.tigerhixtang.lib.scoreboard.common;
  
  import org.bukkit.ChatColor;
  

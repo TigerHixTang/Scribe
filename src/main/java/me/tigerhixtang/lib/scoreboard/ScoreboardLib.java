@@ -1,7 +1,7 @@
-package me.tigerhix.lib.scoreboard;
+package me.tigerhixtang.lib.scoreboard;
  
- import me.tigerhix.lib.scoreboard.type.Scoreboard;
- import me.tigerhix.lib.scoreboard.type.SimpleScoreboard;
+ import me.tigerhixtang.lib.scoreboard.type.Scoreboard;
+ import me.tigerhixtang.lib.scoreboard.type.SimpleScoreboard;
  import org.bukkit.entity.Player;
  import org.bukkit.plugin.Plugin;
  import org.bukkit.plugin.java.JavaPlugin;

@@ -1,6 +1,6 @@
-package me.tigerhix.lib.scoreboard.common;
+package me.tigerhixtang.lib.scoreboard.common;
  
- import me.tigerhix.lib.scoreboard.type.Entry;
+ import me.tigerhixtang.lib.scoreboard.type.Entry;
  
  import java.util.LinkedList;
  import java.util.List;

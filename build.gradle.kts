@@ -2,7 +2,7 @@ plugins {
      `java-library`
  }
  
- group = "me.tigerhix.lib"
+ group = "me.tigerhixtang.lib"
  version = "2.0.0-SNAPSHOT"
  
  java {

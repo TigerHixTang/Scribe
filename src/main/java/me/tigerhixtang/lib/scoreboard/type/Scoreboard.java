@@ -1,4 +1,4 @@
-package me.tigerhix.lib.scoreboard.type;
+package me.tigerhixtang.lib.scoreboard.type;
  
  import org.bukkit.entity.Player;
  

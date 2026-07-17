@@ -1,4 +1,4 @@
-package me.tigerhix.lib.scoreboard.common.animate;
+package me.tigerhixtang.lib.scoreboard.common.animate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

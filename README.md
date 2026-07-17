@@ -44,7 +44,7 @@
          <scope>provided</scope>
      </dependency>
      <dependency>
-         <groupId>me.tigerhix.lib</groupId>
+         <groupId>me.tigerhixtang.lib</groupId>
          <artifactId>scoreboard</artifactId>
          <version>2.0.0-SNAPSHOT</version>
          <scope>compile</scope>
@@ -61,7 +61,7 @@
  
  dependencies {
      compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-     implementation("me.tigerhix.lib:scoreboard:2.0.0-SNAPSHOT")
+     implementation("me.tigerhixtang.lib:scoreboard:2.0.0-SNAPSHOT")
  }
  ```
  

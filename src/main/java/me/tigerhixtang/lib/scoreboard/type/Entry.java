@@ -1,6 +1,6 @@
-package me.tigerhix.lib.scoreboard.type;
+package me.tigerhixtang.lib.scoreboard.type;
  
- import me.tigerhix.lib.scoreboard.common.Strings;
+ import me.tigerhixtang.lib.scoreboard.common.Strings;
  
  public class Entry {
  

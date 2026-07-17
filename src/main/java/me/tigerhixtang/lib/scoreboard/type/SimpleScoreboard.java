@@ -1,9 +1,9 @@
-package me.tigerhix.lib.scoreboard.type;
+package me.tigerhixtang.lib.scoreboard.type;
  
  import com.google.common.collect.HashBasedTable;
  import com.google.common.collect.Table;
- import me.tigerhix.lib.scoreboard.ScoreboardLib;
- import me.tigerhix.lib.scoreboard.common.Strings;
+ import me.tigerhixtang.lib.scoreboard.ScoreboardLib;
+ import me.tigerhixtang.lib.scoreboard.common.Strings;
  import org.bukkit.Bukkit;
  import org.bukkit.ChatColor;
  import org.bukkit.OfflinePlayer;
