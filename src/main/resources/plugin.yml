@@ -1,5 +1,7 @@
 name: ScoreboardLib
-version: 1.0.1
-description: Utilizing scoreboards for a UI enhancement.
-author: TigerHix
-main: me.tigerhix.lib.scoreboard.ScoreboardLib
+ version: 2.0.0
+ description: A flicker-free scoreboard library for Paper/Spigot.
+ author: TigerHixTang
+ main: me.tigerhix.lib.scoreboard.ScoreboardLib
+ api-version: 1.21
+ 
