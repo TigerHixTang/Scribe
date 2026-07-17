@@ -1,104 +1,138 @@
 # ScoreboardLib
- A flicker-free scoreboard library with support of text up to 48 characters.
  
- What is ScoreboardLib?
- --------------
- ScoreboardLib is a flexiable library for adding pretty, animated scoreboards to your plugin without requiring you to figure out how to get rid of random flickers or limitations. This library is introduced to dealt with following problems in the original API and similar libraries:
- * Scoreboards cannot display text of more than 16 characters.
- * Scoreboards cannot display the same text more than once.
- * The scoreboard is flickering all the time.
- * Random disappearance of lines.
+ A flicker-free scoreboard library for Paper/Spigot servers (Minecraft 1.21+).
+ Supports text up to 48 characters per line, animated titles, and scrolling/highlighting effects.
  
- Any screenshots?
- --------------
- ![Preview](http://i.imgur.com/eJgctc9.gif)
+ > Originally created for Bukkit/Spigot 1.7, modernized for Paper 1.21+ with Java 21.
  
- Other reasons to use ScoreboardLib?
- --------------
- * Simple to use. You just have to decide the user interface, ScoreboardLib already got the backend handled.
- * Displays up to 48 characters instead of 16.
- * Easy to implement animated text with help of ScrollableString and HighlightedString.
- * Designed to be scalable and flexible.
- * Performant. ScoreboardLib doesn't create a scoreboard every time the content is updated.
- * Can be used as a standalone plugin, or be shaded into your project.
+ ## Features
  
- How do I add it to my project?
- --------------
- Simply add the following to your pom.xml.
+ - **Up to 48 characters** per line (vanilla limit is 16)
+ - **No flickering** — ScoreboardLib reuses the same scoreboard object instead of recreating it
+ - **Animated text** — scrollable strings, highlight animations, frame-by-frame animations
+ - **Deduplication** — display identical text on multiple lines without issues
+ - **Clean shutdown** — all active scoreboards are automatically cleaned up on plugin disable
  
+ ## Requirements
+ 
+ - Java 21+
+ - Paper 1.21+ (or compatible Spigot fork)
+ 
+ ## Usage
+ 
+ ### As a standalone plugin
+ 
+ Download the built JAR from Releases and place it in your server's `plugins/` folder.
+ 
+ ### As a library (shaded into your plugin)
+ 
+ **Maven:**
+ 
+ ```xml
+ <repositories>
      <repository>
-       <id>tiger-repo</id>
-       <url>http://repo.tigerhix.me/content/repositories/snapshots/</url>
+         <id>papermc</id>
+         <url>https://repo.papermc.io/repository/maven-public/</url>
      </repository>
+ </repositories>
  
+ <dependencies>
      <dependency>
-       <groupId>me.tigerhix.lib</groupId>
-       <artifactId>scoreboard</artifactId>
-       <version>1.0.1-SNAPSHOT</version>
+         <groupId>io.papermc.paper</groupId>
+         <artifactId>paper-api</artifactId>
+         <version>1.21.4-R0.1-SNAPSHOT</version>
+         <scope>provided</scope>
      </dependency>
+     <dependency>
+         <groupId>me.tigerhix.lib</groupId>
+         <artifactId>scoreboard</artifactId>
+         <version>2.0.0-SNAPSHOT</version>
+         <scope>compile</scope>
+     </dependency>
+ </dependencies>
+ ```
  
- > Note: the old Maven repository at repo.tigerhix.me is no longer available. You will need to build the library from source or host it yourself.
+ **Gradle (Kotlin DSL):**
  
- How do I use it?
- --------------
- First, you have to decide whether you use ScoreboardLib as a standalone plugin, or you just go shade it into your own plugin. For the latter case, you have to add following code to your onEnable():
+ ```kotlin
+ repositories {
+     maven("https://repo.papermc.io/repository/maven-public/")
+ }
+ 
+ dependencies {
+     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+     implementation("me.tigerhix.lib:scoreboard:2.0.0-SNAPSHOT")
+ }
+ ```
+ 
+ ### Building from source
+ 
+ **Maven:**
+ ```
+ mvn clean package
+ ```
+ 
+ **Gradle:**
+ ```
+ ./gradlew build
+ ```
+ 
+ ### Quick start
+ 
+ If you shade ScoreboardLib into your plugin, add this in your `onEnable()`:
  
  ```java
  ScoreboardLib.setPluginInstance(this);
  ```
  
- To let ScoreboardLib holds a reference to your plugin and hence able to schedule tasks, register events, etc.
- 
- For the scoreboard itself, here is an usage example:
+ Then create a scoreboard for a player:
  
  ```java
- for (Player player: getServer().getOnlinePlayers()) {
- 	Scoreboard scoreboard = ScoreboardLib.createScoreboard(player)
- 		.setHandler(new ScoreboardHandler() {
+ Scoreboard scoreboard = ScoreboardLib.createScoreboard(player)
+     .setHandler(new ScoreboardHandler() {
  
-     		private final ScrollableString scroll = new ScrollableString(Strings.format("&aThis string is scrollable!"), 40, 0);
-     		private final HighlightedString highlighted = new HighlightedString("This string is highlighted!", "&6", "&e");
-     
-     		@Override
-     		public String getTitle(Player player) {
-     			return null;
-     		}
-     
-     		@Override
-     		public List<Entry> getEntries(Player player) {
-     			return new EntryBuilder()
-     				.next("    " + scroll.next())
-     				.next("    " + highlighted.next())
-     				.blank()
-     				.next("    &b&lCURRENT TIME MILLIS")
-     				.next("    " + System.currentTimeMillis())
-     				.blank()
-     				.next("    &c&lCURRENT NANO TIME")
-     				.next("    " + System.nanoTime())
-     				.blank()
-     				.next("    &7This line is equivalent to another line")
-     				.next("    &7This line is equivalent to another line")
-     				.blank()
-     				.build();
-     		}
+         private final ScrollableString scroll = new ScrollableString("&aThis string is scrollable!", 40, 0);
+         private final HighlightedString highlighted = new HighlightedString("This string is highlighted!", "&6", "&e");
  
- 	    })
- 	    .setUpdateInterval(2l);
- 	scoreboard.activate();
- }
+         @Override
+         public String getTitle(Player player) {
+             return "&b&lSERVER INFO";
+         }
+ 
+         @Override
+         public List<Entry> getEntries(Player player) {
+             return new EntryBuilder()
+                 .next("&7" + scroll.next())
+                 .next("&7" + highlighted.next())
+                 .blank()
+                 .next("&bOnline: &f" + Bukkit.getOnlinePlayers().size())
+                 .next("&bTPS: &f18.5")
+                 .blank()
+                 .next("&7github.com/TigerHixTang")
+                 .build();
+         }
+ 
+     })
+     .setUpdateInterval(2L);
+ scoreboard.activate();
  ```
  
- Which would display a scoreboard as shown in the above gif to all online players.
- 
- To remove the scoreboard, use:
+ To remove the scoreboard:
  
  ```java
  scoreboard.deactivate();
  ```
  
- That's really much of it. If you want to extend the functionalities somehow, simply create a new class that extends SimpleScoreboard, and start overriding methods, creating constructors, etc.
+ ### Animated strings
  
- License
- --------------
- ScoreboardLib is licensed under the [GNU Lesser General Public License (Version 3)](https://github.com/TigerHixTang/ScoreboardLib/blob/master/LICENSE).
+ | Class | Description |
+ |-------|-------------|
+ | `ScrollableString` | Scrolls text horizontally like a marquee |
+ | `HighlightedString` | Walks through each character, highlighting one at a time |
+ | `FrameAnimatedString` | Cycles through a list of pre-defined frames |
+ | `StaticString` | Always returns the same text (useful with interfaces) |
+ 
+ ## License
+ 
+ This project is licensed under the `GNU Lesser General Public License v3.0` — see the [LICENSE](LICENSE) file for details.
  

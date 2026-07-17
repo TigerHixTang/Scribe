@@ -1,4 +1,11 @@
 .idea/
-output/
-target/
-ScoreboardLib.iml
+ output/
+ target/
+ ScoreboardLib.iml
+ .gradle/
+ build/
+ !gradle/wrapper/gradle-wrapper.jar
+ !gradle/wrapper/gradle-wrapper.properties
+ !gradlew
+ !gradlew.bat
+ 
