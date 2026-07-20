@@ -29,13 +29,13 @@ package me.tigerhixtang.lib.scoreboard;
          return sb;
      }
  
-     static void register(SimpleScoreboard scoreboard) {
+     public static void register(SimpleScoreboard scoreboard) {
          synchronized (activeScoreboards) {
              activeScoreboards.add(scoreboard);
          }
      }
  
-     static void unregister(SimpleScoreboard scoreboard) {
+     public static void unregister(SimpleScoreboard scoreboard) {
          synchronized (activeScoreboards) {
              activeScoreboards.remove(scoreboard);
          }

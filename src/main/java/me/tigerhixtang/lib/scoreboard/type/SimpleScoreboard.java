@@ -1,4 +1,4 @@
-﻿package me.tigerhixtang.lib.scoreboard.type;
+package me.tigerhixtang.lib.scoreboard.type;
  
  import com.google.common.collect.HashBasedTable;
  import com.google.common.collect.Table;
@@ -6,8 +6,7 @@
  import me.tigerhixtang.lib.scoreboard.common.Strings;
  import org.bukkit.Bukkit;
  import org.bukkit.ChatColor;
- import org.bukkit.OfflinePlayer;
- import org.bukkit.entity.Player;
+  import org.bukkit.entity.Player;
  import org.bukkit.scheduler.BukkitRunnable;
  import org.bukkit.scoreboard.DisplaySlot;
  import org.bukkit.scoreboard.Objective;
@@ -146,7 +145,7 @@
              if (!appeared.containsKey(appearance)) appeared.put(appearance, -1);
              appeared.put(appearance, appeared.get(appearance) + 1);
              FakePlayer faker = getFakePlayer(key, appeared.get(appearance));
-             objective.getScore(faker).setScore(score);
+             objective.getScore(faker.getName()).setScore(score);
              entryCache.put(faker, score);
              current.put(faker, score);
          }
@@ -193,17 +192,17 @@
              faker = new FakePlayer(name, team);
              playerCache.put(name, offset, faker);
              if (team != null) {
-                 team.addPlayer(faker);
+                 team.addEntry(faker.getName());
              }
          } else {
              faker = playerCache.get(name, offset);
              Team oldTeam = faker.getTeam();
              if (oldTeam != null) {
-                 oldTeam.removePlayer(faker);
+                 oldTeam.removeEntry(faker.getName());
              }
              faker.setTeam(team);
              if (team != null) {
-                 team.addPlayer(faker);
+                 team.addEntry(faker.getName());
              }
          }
          return faker;
@@ -217,7 +216,7 @@
          return scoreboard;
      }
  
-     private static class FakePlayer implements OfflinePlayer {
+     private static class FakePlayer {
  
          private static final Map<String, UUID> uuidCache = new HashMap<>();
  
@@ -243,39 +242,37 @@
              return prefix + name + suffix;
          }
  
-         @Override public boolean isOnline() { return true; }
-         @Override public @NotNull String getName() { return name; }
-         @Override public @NotNull UUID getUniqueId() { return uuid; }
-         @Override public @NotNull Map<String, Object> serialize() { return Map.of(); }
+         public boolean isOnline() { return true; }
+         public String getName() { return name; }
+         public UUID getUniqueId() { return uuid; }
+         public @NotNull Map<String, Object> serialize() { return Map.of(); }
  
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public boolean isBanned() { return false; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public void setBanned(boolean banned) {}
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public boolean isWhitelisted() { return false; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public void setWhitelisted(boolean whitelisted) {}
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public Player getPlayer() { return null; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public long getFirstPlayed() { return 0; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public long getLastPlayed() { return 0; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public boolean hasPlayedBefore() { return false; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public org.bukkit.Location getBedSpawnLocation() { return null; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public boolean isOp() { return false; }
-         @Override @Deprecated @SuppressWarnings("deprecation")
+         @Deprecated @SuppressWarnings("deprecation")
          public void setOp(boolean op) {}
  
-         @Override
-         public String toString() {
+              public String toString() {
              return "FakePlayer{name='" + name + "', uuid=" + uuid + '}';
          }
      }
  
  }
- 
